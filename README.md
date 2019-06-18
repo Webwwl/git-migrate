@@ -1,8 +1,8 @@
 #### install
 ```
-npm install -g git-migrate
+npm install -g gitmigrate
 ```
 #### use
 ```
-git-migrate -s origin -t cil
+gitmigrate -s origin -t cil
 ```
