@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "migrate git repository",
   "main": "index.js",
+  "bin": {
+    "git-migrate": "./src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "src",
+    "package.json",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Webwwl/git-migrate.git"
@@ -21,6 +29,8 @@
   },
   "homepage": "https://github.com/Webwwl/git-migrate#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
     "shelljs": "^0.8.3"
   }
 }
