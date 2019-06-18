@@ -1,6 +1,6 @@
 {
   "name": "gitmigrate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "migrate git repository",
   "main": "index.js",
   "bin": {
