@@ -4,18 +4,18 @@ const program = require('commander')
 const chalk = require('chalk')
 
 // resolve argvs
-program.version('1.0.2')
+program.version('1.0.5')
 .option('-s, --source <vlaue>', 'source remote')
 .option('-t, --target <vlaue>', 'target remote')
 .option('-ral, --removeAllLocalBranches', 'remove all local branchs except master ')
-.option('-rrb, --removeRemoteBranchs <value>', 'remove remote branches except master ')
+.option('-rrb, --removeRemoteBranches <value>', 'remove remote branches except master ')
 .option('-m, --master', 'push master to target ')
 .parse(process.argv)
 
 const source = program.source
 const target = program.target
 const removeAllLocalBranches = program.removeAllLocalBranches
-const removeRemoteBranchs = program.removeRemoteBranchs
+const removeRemoteBranches = program.removeRemoteBranches
 const master = program.master
 
 // remove all localBranches
@@ -30,11 +30,11 @@ if(removeAllLocalBranches) {
 }
 
 // remove remote branches
-if(removeRemoteBranchs) {
+if(removeRemoteBranches) {
   shelljs.exec('git checkout master');
-  const remoteBranches = getRemoteBranches(removeRemoteBranchs);
+  const remoteBranches = getRemoteBranches(removeRemoteBranches);
   remoteBranches.forEach(branch => {
-    shelljs.exec(`git push ${removeRemoteBranchs} :${branch}`);
+    shelljs.exec(`git push ${removeRemoteBranches} :${branch}`);
     console.log(chalk.red(`delete branch: ${branch}`))
   })
   shelljs.exit(0);

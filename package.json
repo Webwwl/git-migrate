@@ -1,6 +1,6 @@
 {
   "name": "gitmigrate",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "migrate git repository",
   "main": "index.js",
   "bin": {
@@ -9,11 +9,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": [
-    "src",
-    "package.json",
-    "README.md"
-  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Webwwl/git-migrate.git"
