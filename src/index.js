@@ -4,11 +4,11 @@ const program = require('commander')
 const chalk = require('chalk')
 
 // resolve argvs
-program.version('1.0.5')
+program.version('1.0.6')
 .option('-s, --source <vlaue>', 'source remote')
 .option('-t, --target <vlaue>', 'target remote')
-.option('-ral, --removeAllLocalBranches', 'remove all local branchs except master ')
-.option('-rrb, --removeRemoteBranches <value>', 'remove remote branches except master ')
+.option('-l, --removeAllLocalBranches', 'remove all local branches except master ')
+.option('-r, --removeRemoteBranches <value>', 'remove remote branches except master ')
 .option('-m, --master', 'push master to target ')
 .parse(process.argv)
 
@@ -17,6 +17,12 @@ const target = program.target
 const removeAllLocalBranches = program.removeAllLocalBranches
 const removeRemoteBranches = program.removeRemoteBranches
 const master = program.master
+
+// if git is useable
+if (!shell.which('git')) {
+    console.log(chalk.yellow('Sorry, this script requires git'));
+    shell.exit(1);
+}
 
 // remove all localBranches
 if(removeAllLocalBranches) {
@@ -48,21 +54,25 @@ const branchs = shelljs.exec(`git branch -a | grep ${source}`, {silent: true})
 .map(branch => branch.replace('*', '').replace(/\s*/, ''))
 .filter(branch => (branch !== '' && !branch.includes('master') && !branch.toLowerCase().includes('head')));
 
+let branchCount = 0;
 for(let i = 0, l = branchs.length; i < l; i++) {
   const fullbranch = branchs[i];
   const branch = fullbranch.split('/').slice(-1);
   console.log(chalk.green(`now in ${branch}, start push...`));
   pushTarget(fullbranch, branch, target);
   console.log(chalk.green(`push branch: ${branch} over`));
+  branchCount++;
 }
 // if push master
 if(master) {
   console.log(chalk.green(`now in master, start push...`));
+  shelljs.exec(`git checkout master`);
   shelljs.exec(`git push ${target} master:master`);
   console.log(chalk.green(`push branch: master over`));
+  branchCount++;
 }
 
-console.log(chalk.green(`pushed all branch, total: ${branchs.length}, from ${source} to ${target}`));
+console.log(chalk.green(`pushed all branch, total: ${branchCount}, from ${source} to ${target}`));
 
 // get a remote's branches except master
 function getRemoteBranches(target) {
